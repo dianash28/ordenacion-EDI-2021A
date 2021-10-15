@@ -2,6 +2,7 @@
 #define N 10
 void imprimeArreglo(int a[N]);
 void quickson(int arr[N], int der, int izq);
+int dividir(int arr[N], int izq, int der);
 int main()
 {
     int arreglo[N];
@@ -31,9 +32,46 @@ void quickson(int arr[N], int der, int izq)
     int pivote=izq;//inicializacion de pivote de inicio del indie de izq
    int inicio=izq;
    int fin=der;
-   if (inicio>=fin)
+   if (inicio<fin)
    {
-       while(der>izq)
+       pivote=dividir(arr,izq,der);
+      /* while(der>izq)
+       {
+            while(der>pivote && arr[der]>=arr[pivote])
+            {
+                der--;
+            }
+            if (arr[der]<arr[pivote])
+            {
+               aux=arr[der];
+               arr[der]=arr[pivote];
+               arr[pivote]=aux;
+
+               pivote=der;
+            }
+           while(izq<pivote && arr[izq]<arr[pivote])
+           {
+               izq++;
+           }
+           if (arr[izq]>arr[pivote])
+           {
+                aux=arr[izq];
+                arr[izq]=arr[pivote];
+                arr[pivote]=aux;
+
+                pivote=izq;
+           }
+        }*/
+       quickson(arr,inicio,pivote-1);
+       quickson(arr,pivote+1,fin);
+   }
+}
+
+int dividir(int arr[N], int izq, int der)
+{
+    int pivote;
+    int aux;
+     while(der>izq)
        {
             while(der>pivote && arr[der]>=arr[pivote])
             {
@@ -60,11 +98,8 @@ void quickson(int arr[N], int der, int izq)
                 pivote=izq;
            }
         }
-       quickson(arr,inicio,pivote-1);
-       quickson(arr,pivote+1,fin);
-   }
+    return pivote;
 }
-
 
 void imprimeArreglo(int a[N])
 {
